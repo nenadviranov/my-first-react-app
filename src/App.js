@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'; 
+import Tweet from './tweet'
 
 function App() {
+
+
+  const [isRed, setRed] = useState(false)
+  const [count, setCount] = useState(0) 
+
+  const inc = () => {
+    setCount(count +1)
+    setRed(!isRed)
+  }
+
+  const [users, setUser] = useState([
+    {name : 'John', message: 'I am the true king', likes: '10k'},
+    {name: 'Sansa', message: 'I am Sansa Stark of Winterfell', likes: '6k'},
+    {name: 'Daenerys', message: 'I will take what is mine with fire and blood', likes: '26k'}
+
+  ])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1 className={isRed ? "red" : ""}>Change my color</h1>
+      <button onClick={inc}>Inc</button>
+      <h1>{count}</h1>
+      {users.map(user => (
+        <Tweet name={user.name} message={user.message} likes={user.likes}/>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
